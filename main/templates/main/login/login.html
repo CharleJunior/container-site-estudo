@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'styles/login.css' %}">
+</head>
+<body>
+
+    <div class="container-form">
+        <div class="form">
+            <h2>Bem-vindo</h2>
+            <p>Entre com seus dados para continuar</p>
+            {% if messages %}
+                <div class="container-mensagens">
+                    {% for message in messages %}
+                        <div class="alerta {{ message.tags }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            <form method="POST">
+                <div class="inputs">
+                    {% csrf_token %}
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Entrar</button>
+            </form>
+
+                <span>Não tem uma conta? <a href="{% url 'registro' %}">Registre-se</a></span>
+        </div>
+    </div>
+
+</body>
+</html>

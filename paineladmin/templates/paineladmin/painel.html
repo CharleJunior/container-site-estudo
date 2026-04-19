@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'admin/admin.css' %}">
+</head>
+<body>
+    <div class="wrapper">
+        <aside class="barra-lateral">
+            <div class="logo">
+                <h2>Admin<span>Panel</span></h2>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'users' %}" class="aside-button {% if request.resolver_match.url_name == 'users' %}active{% endif %}"><i class="fa-solid fa-users"></i> Users</a></li>
+                    <li><a href="{% url 'mural_admin' %}" class="aside-button {% if request.resolver_match.url_name == 'mural_admin' %}active{% endif %}"> Mural</a></li>
+                    <li><a href="{% url 'ult' %}" class="aside-button {% if request.resolver_match.url_name == 'ult' %}active{% endif %}"> Ultimas Mensagens</a></li>
+                </nav>
+            <div class="aside-footer">
+                <a href="{% url 'home' %}"> Voltar para a Home</a><br>
+                <a href="{% url 'logout' %}" class="logout-btn"><i class="fa-solid fa-right-from-bracket"></i> Sair</a>
+            </div>
+        </aside>
+
+        <main class="painel">
+            <header class="top-bar">
+                <h1>Dashboard</h1>
+                <div class="user-info">
+                    <span>Bem-vindo, <strong>{{user.username}}</strong></span>
+                    <div class="avatar"></div>
+                </div>
+            </header>
+
+            <section class="content">
+                {% block dashboard_content %}
+                {% endblock %}
+            </section>
+        </main>
+    </div>
+    <script src="{% static 'admin/admin.js' %}"></script>
+</body>
+</html>

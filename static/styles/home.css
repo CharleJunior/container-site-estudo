@@ -1,0 +1,153 @@
+:root {
+    --bg-body: #f8fafc;
+    --sidebar-blue: #3182ce; 
+    --text-main: #2d3748;
+    --text-muted: #718096;
+    --border-color: #e2e8f0;
+    --card-white: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-body);
+    color: var(--text-main);
+    min-height: 100vh;
+}
+
+.top-bar {
+    background: var(--card-white);
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 5%;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand h2 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.brand span {
+    color: var(--sidebar-blue);
+}
+
+.user-nav {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.link-admin-btn {
+    background: transparent;
+    color: var(--sidebar-blue);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 8px 16px;
+    border: 1.5px solid var(--sidebar-blue);
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.link-admin-btn:hover {
+    background: var(--sidebar-blue);
+    color: white;
+}
+
+.logout-link {
+    color: #e53e3e;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-header h1 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.mural-card {
+    background: var(--card-white);
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    overflow: hidden;
+}
+
+.mural-card-header {
+    padding: 20px 25px;
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.mural-card-header i {
+    color: var(--text-muted);
+    font-size: 1.1rem;
+}
+
+.mural-card-header h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-main);
+}
+
+.mural-content {
+    padding: 25px;
+}
+
+.mural-text {
+    width: 100%;
+    min-height: 300px;
+    background: #fdfdfd;
+    border: 1px solid #edf2f7;
+    border-radius: 6px;
+    padding: 20px;
+    font-size: 1rem;
+    color: #4a5568;
+    line-height: 1.7;
+    resize: none;
+    outline: none;
+    cursor: default;
+}
+
+.mural-footer {
+    padding: 15px 25px;
+    background: #f8fafc;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.author-tag {
+    font-weight: 600;
+    color: var(--text-main);
+}

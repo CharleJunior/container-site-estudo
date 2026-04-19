@@ -1,0 +1,52 @@
+{% extends 'paineladmin/painel.html' %}
+
+{% block dashboard_content %}
+<div style="padding: 20px;">
+    <div style="background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); overflow: hidden;">
+        
+        <div style="padding: 20px 25px; border-bottom: 1px solid #edf2f7; display: flex; align-items: center; gap: 12px;">
+            <i class="fa-solid fa-bullhorn" style="color: #4a5568; font-size: 1.2rem;"></i>
+            <h2 style="font-family: 'Inter', sans-serif; font-size: 1.1rem; color: #2d3748; margin: 0; font-weight: 600;">
+                Configurações do Mural Informativo
+            </h2>
+        </div>
+
+        <div style="padding: 25px;">
+            <form method="POST">
+                {% csrf_token %}
+                
+                <div style="margin-bottom: 20px;">
+                    <label style="display: block; font-size: 0.85rem; color: #718096; font-weight: 600; text-transform: uppercase; letter-spacing: 0.025em; margin-bottom: 10px;">
+                        Conteúdo do Aviso
+                    </label>
+                    <textarea name="texto" 
+                        style="width: 100%; min-height: 220px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 6px; font-family: 'Inter', sans-serif; font-size: 1rem; color: #4a5568; line-height: 1.6; outline: none; transition: border-color 0.2s; resize: vertical;"
+                        placeholder="Escreva aqui a mensagem que será exibida para todos os usuários na página inicial...">{{ aviso.texto }}</textarea>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <button type="submit" style="background-color: #2e46cc; color: white; border: none; padding: 10px 24px; border-radius: 6px; font-family: 'Inter', sans-serif; font-weight: 600; cursor: pointer; font-size: 0.9rem; transition: background 0.2s; display: flex; align-items: center; gap: 8px;">
+                        <i class="fa-solid fa-check"></i> Atualizar Mural
+                    </button>
+
+                    {% if aviso %}
+                    <div style="text-align: right;">
+                        <span style="display: block; font-size: 0.75rem; color: #a0aec0;">Última edição por:</span>
+                        <span style="font-size: 0.85rem; color: #4a5568; font-weight: 600;">
+                            {{ aviso.autor.username }} — {{ aviso.data|date:"d/m/Y H:i" }}
+                        </span>
+                    </div>
+                    {% endif %}
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<style>
+    button:hover {
+        background-color: #3182ce  !important;
+    }
+</style>
+{% endblock %}
