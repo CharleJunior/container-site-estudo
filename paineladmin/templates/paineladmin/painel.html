@@ -20,6 +20,7 @@
                     <li><a href="{% url 'users' %}" class="aside-button {% if request.resolver_match.url_name == 'users' %}active{% endif %}"><i class="fa-solid fa-users"></i> Users</a></li>
                     <li><a href="{% url 'mural_admin' %}" class="aside-button {% if request.resolver_match.url_name == 'mural_admin' %}active{% endif %}"> Mural</a></li>
                     <li><a href="{% url 'ult' %}" class="aside-button {% if request.resolver_match.url_name == 'ult' %}active{% endif %}"> Ultimas Mensagens</a></li>
+                    <li><a href="{% url 'message' %}" class="aside-button"><i class="fa-solid fa-comment-dots"></i> Mensagens</a></li>
                 </nav>
             <div class="aside-footer">
                 <a href="{% url 'home' %}"> Voltar para a Home</a><br>
@@ -32,7 +33,6 @@
                 <h1>Dashboard</h1>
                 <div class="user-info">
                     <span>Bem-vindo, <strong>{{user.username}}</strong></span>
-                    <div class="avatar"></div>
                 </div>
             </header>
 

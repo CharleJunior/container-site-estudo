@@ -1,0 +1,192 @@
+.chat-wrapper {
+    display: flex;
+    height: 90vh;
+    background: #f8fafc;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    border: 1px solid #e2e8f0;
+    margin: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.sidebar-contatos {
+    width: 300px;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    overflow-y: auto;
+    padding: 15px;
+}
+
+.titulo-lateral {
+    color: #1e293b;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.card-user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 10px;
+    transition: 0.2s;
+    border-left: 4px solid transparent;
+}
+
+.card-user:hover {
+    background: #f1f5f9;
+}
+
+.card-user.unread {
+    background-color: #f0f7ff;
+    border-left-color: #2563eb;
+}
+
+.user-info {
+    flex: 1;
+}
+
+.card-user strong {
+    color: #2563eb;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.card-user.unread strong {
+    color: #1e3a8a;
+    font-weight: 800;
+}
+
+.card-user span {
+    color: #64748b;
+    font-size: 0.8rem;
+    display: block;
+}
+
+.msg-count {
+    color: #2563eb;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+.painel-chat {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+}
+
+.chat-header {
+    padding: 15px 25px;
+    border-bottom: 1px solid #e2e8f0;
+    background: #fdfdfd;
+}
+
+#msg-box {
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    height: 500px;
+    background-color: #f8fafc;
+    flex: 1;
+}
+
+#msg-box > :first-child {
+    margin-top: auto !important;
+}
+
+.bubble {
+    max-width: 75%;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    line-height: 1.4;
+    margin: 8px 20px;
+}
+
+.bubble.sent {
+    align-self: flex-end;
+    background-color: #2563eb;
+    color: white;
+    border-radius: 15px 15px 2px 15px;
+    padding-right: 25px;
+}
+
+.bubble.received {
+    align-self: flex-start;
+    background-color: #ffffff;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    border-radius: 15px 15px 15px 2px;
+}
+
+.btn-delete {
+    position: absolute;
+    top: 5px;
+    right: 8px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 1;
+    transition: 0.2s;
+}
+
+.btn-delete:hover {
+    color: #ff4d4d;
+}
+
+.bubble small {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: 5px;
+    opacity: 0.8;
+    text-align: right;
+}
+
+.bubble.received small {
+    color: #64748b;
+}
+
+.bubble.sent small {
+    color: #e0e7ff;
+}
+
+.chat-footer {
+    padding: 20px;
+    border-top: 1px solid #e2e8f0;
+    display: flex;
+    gap: 10px;
+    background: white;
+}
+
+.chat-footer input {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    outline: none;
+}
+
+.chat-footer button {
+    background: #ffffff;
+    border: 1px solid #2563eb;
+    color: #2563eb;
+    padding: 8px 20px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.chat-footer button:hover {
+    background: #2563eb;
+    color: white;
+}

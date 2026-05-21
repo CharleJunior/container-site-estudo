@@ -15,15 +15,21 @@
         <div class="brand">
             <h2>AVISOS DA <span>ADMINISTRAÇÃO</span></h2>
         </div>
-        
-        <div class="user-nav">
+
+        <div class="user-nav" style="display: flex; align-items: center;">
+
+            <a href="{% url 'message' %}" class="notif-link" title="Mensagens">
+                <i class="fa-solid fa-envelope" style="font-size: 1.2rem;"></i>
+                <span id="notif-badge">0</span>
+            </a>
+
             {% if user.is_staff %}
                 <a href="{% url 'admin' %}" class="link-admin-btn">
                     <i class="fa-solid fa-gauge-high"></i> Painel Admin
                 </a>
             {% endif %}
-            
-            <span style="font-size: 0.9rem; color: var(--text-muted);">
+
+            <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 15px;">
                 Olá, <strong>{{ user.username }}</strong>
             </span>
 
@@ -44,16 +50,16 @@
                 <i class="fa-solid fa-bullhorn"></i>
                 <h3>Mural de Avisos</h3>
             </div>
-            
+
             <div class="mural-content">
                 <div class="mural-text-container">
                     <textarea class="mural-text" readonly>{{ aviso.texto }}</textarea>
                 </div>
             </div>
-            
+
             <div class="mural-footer">
                 <div>
-                    <i class="fa-regular fa-clock"></i> 
+                    <i class="fa-regular fa-clock"></i>
                     Publicado em {{ aviso.data|date:"d/m/Y \à\s H:i" }}
                 </div>
                 <div>
@@ -62,6 +68,7 @@
             </div>
         </div>
     </div>
+    <script src="{% static 'notificacao.js' %}"></script>
 
 </body>
 </html>

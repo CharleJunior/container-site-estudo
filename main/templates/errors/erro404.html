@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Página não encontrada</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-body: #f8fafc;
+            --primary-blue: #3182ce;
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --card-white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .error-container {
+            max-width: 500px;
+            background: var(--card-white);
+            padding: 50px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            border: 1px solid #e2e8f0;
+        }
+
+        .error-icon {
+            font-size: 80px;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+        }
+
+        .error-code {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--text-main);
+        }
+
+        p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .btn-home {
+            background-color: var(--primary-blue);
+            color: white;
+            text-decoration: none;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-home:hover {
+            background-color: #2b6cb0;
+            transform: translateY(-2px);
+        }
+
+        .btn-home i {
+            font-size: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fa-solid fa-map-location-dot"></i>
+        </div>
+        
+        <span class="error-code">Erro 404</span>
+        <h1>Opa! Caminho errado.</h1>
+        <p>A página que você está procurando não existe.</p>
+
+        <a href="/" class="btn-home">
+            <i class="fa-solid fa-house"></i> Voltar para o Início
+        </a>
+    </div>
+
+</body>
+</html>

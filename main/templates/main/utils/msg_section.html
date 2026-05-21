@@ -1,0 +1,68 @@
+{% load humanize %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset='UTF-8'>
+    <link rel='stylesheet' href="{% static 'styles/msg.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="{% static 'chat.js' %}"></script>
+</head>
+<body>
+<div class="chat-wrapper">
+    <aside class="sidebar-contatos">
+        <div class="sidebar-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+            <div class="titulo-lateral" style="margin-bottom: 0;">Contatos</div>
+            <a href="{% url 'home' %}" class="btn-home" title="Voltar para o Início" style="text-decoration: none; color: #2563eb; font-size: 1.2rem;">
+                <i class="fa-solid fa-house"></i>
+            </a>
+            {% if user.is_staff %}
+                <a href="{% url 'admin' %}" class="btn-admin" title="Painel Admin" style="text-decoration: none; color: #64748b; font-size: 1.1rem;">
+                    <i class="fa-solid fa-gauge-high"></i>
+                </a>
+            {% endif %}
+        </div>
+
+        {% for usuario in usuarios %}
+            <a href="?chat_with={{ usuario.id }}" class="card-user {% if usuario.mensagens_nao_lidas > 0 %}unread{% endif %}">
+                <div class="user-info">
+                    <strong>{{ usuario.username }}</strong>
+                    <span>Visto por último: {{ usuario.last_login|naturaltime|default:"Nunca" }}</span>
+                </div>
+
+                {% if usuario.mensagens_nao_lidas > 0 %}
+                    <div class="msg-count">{{ usuario.mensagens_nao_lidas }}</div>
+                {% endif %}
+            </a>
+        {% endfor %}
+    </aside>
+
+    <main class="painel-chat">
+        <div class="chat-header">
+            <span style="color: #64748b;">Conversando com:</span>
+            <strong style="color: #1e293b; margin-left: 5px;">
+                {{ contato_selecionado.username|default:"Selecione alguém" }}
+            </strong>
+        </div>
+
+        <div class="chat-mensagens" id="msg-box">
+            {% include 'main/partials/lista_mensagem.html' %}
+        </div>
+
+        {% if contato_selecionado %}
+            <form id="chat-form" class="chat-footer" method="POST" action="{% url 'enviar_mensagem' contato_selecionado.id %}">
+                {% csrf_token %}
+                <input type="text" name="conteudo" placeholder="Escreva sua mensagem..." required autocomplete="off">
+                <button type="submit">Enviar</button>
+            </form>
+        {% else %}
+            <div class="chat-footer">
+                <p style="color: #94a3b8; font-size: 0.9rem;">Selecione um contato para habilitar o envio.</p>
+            </div>
+        {% endif %}
+    </main>
+</div>
+
+<script src="{% static 'chat.js' %}"></script>
+</body>
+</html>

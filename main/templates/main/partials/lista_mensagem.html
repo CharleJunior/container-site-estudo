@@ -1,0 +1,15 @@
+{% for msg in mensagens %}
+    <div class="bubble {% if msg.remetente == request.user %}sent{% else %}received{% endif %}">
+
+        {% if msg.remetente == request.user %}
+            <a href="{% url 'apagar_mensagem' msg.id %}" class="btn-delete">&times;</a>
+        {% endif %}
+
+        {{ msg.conteudo }}
+        <small>{{ msg.data_envio|date:"H:i" }}</small>
+    </div>
+{% empty %}
+    <p style="text-align: center; color: #94a3b8; font-size: 0.9rem; margin-top: 20px;">
+        Nenhuma mensagem por aqui ainda. Comece a conversa!
+    </p>
+{% endfor %}

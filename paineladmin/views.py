@@ -29,13 +29,13 @@ def salvar_aviso(request):
         novo_texto = request.POST.get('texto')
         Mural.objects.create(
             texto=novo_texto,
-            autor=request.user 
+            autor=request.user
         )
         return redirect('admin_painel')
 
 @login_required
 def lista_usuarios(request):
-    usuarios = User.objects.all().order_by('username') 
+    usuarios = User.objects.all().order_by('username')
     return render(request, 'utils/users/user.html', {'usuarios': usuarios})
 
 @login_required
@@ -45,7 +45,7 @@ def render_mural(request):
     if request.method == 'POST':
         novo_texto = request.POST.get('texto')
         Mural.objects.create(texto=novo_texto, autor=request.user)
-        return redirect('mural_admin') 
+        return redirect('mural_admin')
     aviso = Mural.objects.last()
     return render(request, 'utils/mural.html', {'aviso': aviso})
 
@@ -54,13 +54,19 @@ def alternar_status_usuario(request, user_id):
     if request.method == 'POST':
         try:
             usuario = User.objects.get(id=user_id)
+
+            if request.user.id == usuario.id:
+                return JsonResponse({
+                    'status': 'error',
+                }, status=403)
+
             usuario.is_staff = not usuario.is_staff
-            usuario.is_active = True       
+            usuario.is_active = True
             usuario.save()
-            
+
             return JsonResponse({
-                'status': 'success', 
-                'is_staff': usuario.is_staff 
+                'status': 'success',
+                'is_staff': usuario.is_staff
             })
         except User.DoesNotExist:
             return JsonResponse({'status': 'error'}, status=404)
