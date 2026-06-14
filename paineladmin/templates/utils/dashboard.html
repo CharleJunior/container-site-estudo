@@ -1,0 +1,60 @@
+{% extends 'paineladmin/painel.html' %} {% block dashboard_content %}
+<div class="dashboard-box" style="background: #fff; padding: 25px; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.02);">
+    <div class="box-header mb-4" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h3 style="font-weight: 600; color: #2d3748; margin: 0;"><i class="fa-solid fa-clock-rotate-left text-primary" style="margin-right: 10px; color: #3182ce;"></i> Histórico de Atividades (Posts)</h3>
+        <span class="badge" style="background: #e2e8f0; color: #4a5568; padding: 6px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Total: {{ logs.count }}</span>
+    </div>
+
+    <div class="table-responsive" style="overflow-x: auto;">
+        <table class="table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem;">
+            <thead>
+                <tr style="border-bottom: 2px solid #edf2f7; color: #718096; font-weight: 600;">
+                    <th style="padding: 12px 8px;">Usuário</th>
+                    <th style="padding: 12px 8px;">Ação / Conteúdo do Post</th>
+                    <th style="padding: 12px 8px;">Data/Hora</th>
+                    <th style="padding: 12px 8px; text-align: center;">Mídia</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                    <tr style="border-bottom: 1px solid #edf2f7; color: #2d3748; transition: background 0.2s;">
+                        <td style="padding: 16px 8px; font-weight: 600;">
+                            <i class="fa-regular fa-user" style="color: #a0aec0; margin-right: 6px;"></i>
+                            {{ log.usuario.username }}
+                        </td>
+                        
+                        <td style="padding: 16px 8px; max-width: 400px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                            <span style="color: #3182ce; font-weight: 500;">Criou um post:</span> 
+                            <a href="{% url 'detalhe_log' log.id %}" style="color: #4a5568; text-decoration: none; border-bottom: 1px dashed #3182ce;" title="Clique para ver detalhes">
+                                "{{ log.texto }}"
+                            </a>
+                        </td>
+                        
+                        <td style="padding: 16px 8px; color: #718096; font-size: 0.9rem;">
+                            <i class="fa-regular fa-calendar-days" style="margin-right: 4px;"></i> 
+                            {{ log.data_envio|date:"d/m/Y H:i" }}
+                        </td>
+                        
+                        <td style="padding: 16px 8px; text-align: center;">
+                            {% if log.imagem %}
+                                <span title="Contém imagem" style="color: #38a169; background: #c6f6d5; padding: 4px 8px; border-radius: 4px; font-size: 0.8rem;">
+                                    <i class="fa-regular fa-image"></i> Sim
+                                </span>
+                            {% else %}
+                                <span style="color: #a0aec0; font-size: 0.85rem;">—</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="4" style="padding: 40px text-align: center; color: #a0aec0; text-align: center;">
+                            <i class="fa-solid fa-inbox fa-2x mb-2" style="display:block; margin-bottom: 10px;"></i>
+                            Nenhuma atividade de postagem registrada ainda.
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

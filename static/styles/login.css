@@ -133,3 +133,26 @@ span a {
 span a:hover {
     text-decoration: underline;
 }
+
+/* MEIDA QUERY */
+
+@media (max-width: 480px) {
+    .container-form {
+        padding: 10px;
+    }
+    .form {
+        padding: 30px 20px;
+    }
+    .form h2 {
+        font-size: 1.5rem;
+    }
+    .form p {
+        margin-bottom: 20px;
+    }
+    .inputs input {
+        padding: 10px;
+    }
+    .btn-primary {
+        padding: 11px;
+    }
+}

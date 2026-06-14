@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'paineladmin',
 ]
 
-PASSWORD_HASHERS = config('PASSWORD_HASHERS', cast=Csv())
+# PASSWORD_HASHERS = config('PASSWORD_HASHERS', cast=Csv())
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -71,7 +71,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'lwork8017@gmail.com'
+# EMAIL_USE_SSL = True
+EMAIL_HOST_USER = 'rcsengenhariaapps@gmail.com'
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
@@ -98,28 +99,42 @@ WSGI_APPLICATION = 'SiteRevisao.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
-#Banco SQLite
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-        'OPTIONS': {
-            'timeout': 20
-        },
-    }
-}
+# Banco SQLite
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#         'OPTIONS': {
+#             'timeout': 20
+#         },
+#     }
+# }
 
 #Banco MYSQL
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME': config('DB_NAME'),
 #        'USER': config('DB_USER'),
-#        'PASSWORD': config('DB_PASS'),
+#        'PASSWORD': config('DB_PASS', default=""),
 #        'HOST': config('DB_HOST'),
 #        'PORT': '3306'
 #       }
 #    }
+
+# Banco POSTGRESQL
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('PG_NAME'),
+        'USER': config('PG_USER'),
+        'PASSWORD': config('PG_PASS'),
+        'HOST': config('PG_HOST'),
+        'PORT': config('PG_PORT'),
+    }
+}
+
+
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -160,6 +175,8 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

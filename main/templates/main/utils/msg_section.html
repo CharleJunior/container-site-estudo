@@ -4,12 +4,15 @@
 <html lang="pt-br">
 <head>
     <meta charset='UTF-8'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mensagens - Portal</title>
     <link rel='stylesheet' href="{% static 'styles/msg.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="{% static 'chat.js' %}"></script>
 </head>
 <body>
-<div class="chat-wrapper">
+
+<div class="chat-wrapper {% if contato_selecionado %}chat-ativo{% endif %}">
+    
     <aside class="sidebar-contatos">
         <div class="sidebar-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
             <div class="titulo-lateral" style="margin-bottom: 0;">Contatos</div>
@@ -38,11 +41,18 @@
     </aside>
 
     <main class="painel-chat">
-        <div class="chat-header">
-            <span style="color: #64748b;">Conversando com:</span>
-            <strong style="color: #1e293b; margin-left: 5px;">
-                {{ contato_selecionado.username|default:"Selecione alguém" }}
-            </strong>
+        <div class="chat-header" style="display: flex; align-items: center; gap: 12px;">
+            
+            <button id="btn-voltar-contatos" style="background: none; border: none; color: #2563eb; font-size: 1.3rem; cursor: pointer; display: none;">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div>
+                <span style="color: #64748b;">Conversando com:</span>
+                <strong style="color: #1e293b; margin-left: 5px;">
+                    {{ contato_selecionado.username|default:"Selecione alguém" }}
+                </strong>
+            </div>
         </div>
 
         <div class="chat-mensagens" id="msg-box">

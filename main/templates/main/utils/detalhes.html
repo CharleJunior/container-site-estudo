@@ -1,0 +1,184 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes da Postagem - Portal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'styles/home.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <style>
+        .insta-container {
+            background: #ffffff;
+            border: 1px solid #dbdbdb;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .comments-section {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            border-left: 1px solid #efefef;
+            background: #ffffff;
+        }
+        .comments-list {
+            flex-grow: 1;
+            overflow-y: auto;
+            max-height: 400px;
+            padding: 15px;
+            border-bottom: 1px solid #efefef;
+        }
+        .comment-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+        .insta-input-box {
+            padding: 12px;
+            background: #ffffff;
+        }
+        @media (max-width: 768px) {
+            .comments-section { border-left: none; border-top: 1px solid #efefef; }
+            .comments-list { max-height: 300px; }
+        }
+    </style>
+</head>
+<body class="bg-light">
+
+    <header class="top-bar">
+        <div class="brand">
+            <h2><span>POSTAGENS DO SISTEMA</span></h2>
+        </div>
+        <div class="user-nav" style="display: flex; align-items: center;">
+            <a href="{% url 'message' %}" class="notif-link" title="Mensagens">
+                <i class="fa-solid fa-envelope" style="font-size: 1.2rem;"></i>
+                <span id="notif-badge">0</span>
+            </a>
+            {% if user.is_staff %}
+                <a href="{% url 'admin' %}" class="link-admin-btn">
+                    <i class="fa-solid fa-gauge-high"></i> Painel Admin
+                </a>
+            {% endif %}
+            <span style="font-size: 0.9rem; color: var(--text-muted); margin-right: 15px;">
+                Olá, <strong>{{ user.username }}</strong>
+            </span>
+            <a href="{% url 'logout' %}" class="logout-link">
+                <i class="fa-solid fa-power-off"></i>
+            </a>
+        </div>
+    </header>
+
+    <div class="container" style="max-width: 1050px; margin-top: 100px; padding-bottom: 50px;">
+        
+        <div class="mb-3">
+            <a href="javascript:history.back()" class="btn btn-sm btn-light border text-secondary fw-semibold px-3" style="border-radius: 20px;">
+                <i class="fa-solid fa-arrow-left me-1"></i> Voltar pro Início
+            </a>
+        </div>
+
+        <div class="row g-0 insta-container">
+            
+            <div class="col-md-7 d-flex align-items-center bg-dark justify-content-center" style="min-height: 450px;">
+                {% if post.imagem %}
+                    <img src="{{ post.imagem.url }}" class="w-100 img-fluid" alt="Imagem" style="max-height: 600px; object-fit: contain;">
+                {% else %}
+                    <div class="text-white p-5 w-100 text-center">
+                        <i class="fa-regular fa-image fa-3x mb-3 text-secondary"></i>
+                        <p class="fs-5 text-light">Esta publicação não contém mídias visuais.</p>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-5 d-flex flex-column">
+                <div class="comments-section">
+                    
+                    <div class="p-3 d-flex align-items-center justify-content-between border-bottom">
+                        <div class="d-flex align-items-center gap-2">
+                            <div class="bg-primary text-white comment-avatar">
+                                {{ post.usuario.username|slice:":1"|upper }}
+                            </div>
+                            <div>
+                                <strong class="text-dark d-block" style="font-size: 0.9rem;">@{{ post.usuario.username }}</strong>
+                                <span class="text-muted" style="font-size: 0.75rem;"><i class="fa-regular fa-calendar"></i> {{ post.data_envio|date:"d/m/Y H:i" }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-light border-bottom" style="font-size: 0.9rem;">
+                        <span class="fw-bold text-dark me-1">@{{ post.usuario.username }}</span> 
+                        <span class="text-secondary" style="white-space: pre-line;">{{ post.texto }}</span>
+                    </div>
+
+                    <div class="comments-list">
+                        {% for c in comentarios %}
+                            <div class="d-flex align-items-start gap-2 mb-3">
+                                <div class="bg-secondary text-white comment-avatar flex-shrink-0">
+                                    {{ c.comentarista.username|slice:":1"|upper }}
+                                </div>
+                                <div class="w-100">
+                                    <div class="bg-light p-2 d-flex justify-content-between align-items-start" style="border-radius: 8px;">
+                                        <div style="flex: 1; padding-right: 10px;">
+                                            <strong class="text-dark d-inline" style="font-size: 0.85rem;">@{{ c.comentarista.username }}</strong>
+                                            <p class="mb-0 text-secondary mt-1" style="font-size: 0.88rem; white-space: pre-line;">{{ c.comentario }}</p>
+                                        </div>
+                                        
+                                        {% if c.comentarista == user or user.is_staff %}
+                                            <a href="{% url 'deletar_comentarios' c.id %}" 
+                                               class="text-danger border-0 bg-transparent p-1 ms-1 style-delete-btn" 
+                                               title="Apagar Comentário"
+                                               style="font-size: 0.85rem; opacity: 0.7; transition: opacity 0.2s;"
+                                               onmouseover="this.style.opacity='1'"
+                                               onmouseout="this.style.opacity='0.7'"
+                                               >
+                                                <i class="fa-solid fa-trash-can"></i>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                    <small class="text-muted ps-1" style="font-size: 0.7rem;">
+                                        <i class="fa-regular fa-clock"></i> {{ c.data_envio|date:"d/m H:i" }}
+                                    </small>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="text-center text-muted py-5">
+                                <i class="fa-regular fa-comment-dots fa-2x mb-2" style="color: #cbd5e0;"></i>
+                                <p class="small mb-0">Nenhum comentário.<br>Seja o primeiro a responder!</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="insta-input-box">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="input-group">
+                                <input type="text" 
+                                       class="form-control border-end-0 shadow-none" 
+                                       name="conteudo_comentario" 
+                                       placeholder="Adicione um comentário..." 
+                                       required 
+                                       style="padding: 10px; font-size: 0.9rem; border-color: #dbdbdb;">
+                                <button class="btn btn-outline-primary fw-semibold border-start-0" type="submit" style="border-color: #dbdbdb;">
+                                    Postar
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'notificacao.js' %}"></script>
+</body>
+</html>

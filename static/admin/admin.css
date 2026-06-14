@@ -185,3 +185,69 @@ nav ul {
     opacity: 0.6;
     cursor: not-allowed;
 }
+
+/* MEDIA QUERYS */
+
+@media (max-width: 992px) {
+    .barra-lateral {
+        width: 70px;
+        padding: 2rem 0.5rem;
+    }
+    .logo h2, .aside-button span, .aside-footer span {
+        display: none; /* Deixa apenas os ícones visíveis em telas médias */
+    }
+    .aside-button i {
+        margin-right: 0;
+        width: 100%;
+        text-align: center;
+        font-size: 1.2rem;
+    }
+    .painel {
+        margin-left: 70px;
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrapper {
+        flex-direction: column;
+    }
+    .barra-lateral {
+        width: 100%;
+        height: auto;
+        position: static;
+        padding: 1rem;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+    }
+    .logo {
+        margin-bottom: 0;
+    }
+    nav ul {
+        display: flex;
+        gap: 10px;
+    }
+    .aside-button {
+        margin-bottom: 0;
+        padding: 0.5rem;
+    }
+    .aside-footer {
+        margin-top: 0;
+        border-top: none;
+        padding-top: 0;
+    }
+    .painel {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    .top-bar {
+        flex-direction: column;
+        gap: 12px;
+        padding: 1rem;
+        text-align: center;
+    }
+    .cards-grid {
+        grid-template-columns: 1fr; /* Força uma coluna única no mobile */
+    }
+}

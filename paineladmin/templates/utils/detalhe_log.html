@@ -1,0 +1,120 @@
+{% extends 'paineladmin/painel.html' %}
+
+{% block dashboard_content %}
+<div class="container-detalhe" style="background: #fff; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); max-width: 850px; margin: 0 auto;">
+    
+    <a href="{% url 'dashboard' %}" style="color: #718096; text-decoration: none; font-size: 0.9rem; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;">
+        <i class="fa-solid fa-arrow-left"></i> Voltar para o Dashboard
+    </a>
+
+    <hr style="border: 0; border-top: 1px solid #edf2f7; margin: 20px 0;">
+
+    <div style="margin-bottom: 25px; display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 15px;">
+        <div>
+            <span style="background: #ebf8ff; color: #2b6cb0; padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px;">LOG DE AUDITORIA</span>
+            <h2 style="margin: 10px 0 5px 0; color: #2d3748; font-weight: 600; font-size: 1.6rem;">Detalhes da Postagem #{{ post.id }}</h2>
+            <p style="color: #718096; font-size: 0.95rem; margin: 0;">
+                Enviado em {{ post.data_envio|date:"d/m/Y \à\s H:i" }}
+            </p>
+        </div>
+        
+        <div style="background: #f7fafc; border: 1px solid #e2e8f0; padding: 12px 20px; border-radius: 8px; text-align: center; min-width: 140px;">
+            <span style="display: block; font-size: 0.75rem; font-weight: 600; color: #a0aec0; text-transform: uppercase;">Comentários</span>
+            <strong style="font-size: 1.8rem; color: #4a5568; line-height: 1.2;">{{ post.total_comentarios }}</strong>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 25px;">
+        <h5 style="margin: 0 0 10px 0; color: #718096; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">Informações do Autor</h5>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; background: #fafafa; padding: 15px; border-radius: 8px; border: 1px solid #f0f0f0;">
+            <div>
+                <span style="font-size: 0.8rem; color: #a0aec0; display: block;">Username:</span>
+                <strong style="color: #4a5568; font-size: 0.95rem;">@{{ post.usuario.username }}</strong>
+            </div>
+            <div>
+                <span style="font-size: 0.8rem; color: #a0aec0; display: block;">Nome do Conta:</span>
+                <strong style="color: #4a5568; font-size: 0.95rem;">{{ post.usuario.get_full_name|default:"Não preenchido" }}</strong>
+            </div>
+            <div>
+                <span style="font-size: 0.8rem; color: #a0aec0; display: block;">Privilégio / Status:</span>
+                <div style="display: flex; gap: 5px; margin-top: 3px;">
+                    {% if post.usuario.is_staff %}
+                        <span style="background: #feebc8; color: #c05621; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px;">STAFF</span>
+                    {% else %}
+                        <span style="background: #edf2f7; color: #4a5568; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px;">COMUM</span>
+                    {% endif %}
+
+                    {% if post.usuario.is_active %}
+                        <span style="background: #c6f6d5; color: #22543d; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px;">ATIVO</span>
+                    {% else %}
+                        <span style="background: #fed7d7; color: #9b2c2c; font-size: 0.7rem; font-weight: bold; padding: 2px 6px; border-radius: 4px;">INATIVO</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="background: #fff; padding: 20px; border-radius: 8px; border: 1px solid #e2e8f0; border-left: 4px solid #3182ce; margin-bottom: 25px;">
+        <h5 style="margin: 0 0 10px 0; color: #718096; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Texto do Comunicado</h5>
+        <p style="color: #2d3748; line-height: 1.6; margin: 0; white-space: pre-line; font-size: 0.95rem;">{{ post.texto }}</p>
+    </div>
+
+    {% if post.imagem %}
+    <div style="margin-bottom: 30px; background: #fff; border: 1px solid #e2e8f0; padding: 15px; border-radius: 8px;">
+        <h5 style="margin: 0 0 10px 0; color: #718096; font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Mídia Anexada</h5>
+        <div style="text-align: center; background: #f7fafc; padding: 10px; border-radius: 6px;">
+            <img src="{{ post.imagem.url }}" alt="Imagem do Log" style="max-width: 100%; max-height: 400px; border-radius: 6px; object-fit: contain;">
+        </div>
+    </div>
+    {% endif %}
+
+    <div style="margin-bottom: 30px; border-top: 1px solid #edf2f7; padding-top: 25px;">
+        <h5 style="margin: 0 0 15px 0; color: #718096; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;">
+            <i class="fa-solid fa-comments" style="margin-right: 5px;"></i> Histórico de Comentários (Moderação)
+        </h5>
+        
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+            {% for c in comentarios %}
+                <div style="background: #fafafa; border: 1px solid #edf2f7; padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: start; gap: 15px;">
+                    <div style="flex: 1;">
+                        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 5px;">
+                            <strong style="color: #2d3748; font-size: 0.9rem;">@{{ c.comentarista.username }}</strong>
+                            {% if c.comentarista.is_staff %}
+                                <span style="background: #feebc8; color: #c05621; font-size: 0.65rem; font-weight: bold; padding: 1px 4px; border-radius: 3px;">STAFF</span>
+                            {% endif %}
+                            <span style="color: #a0aec0; font-size: 0.75rem;">• {{ c.data_envio|date:"d/m/Y H:i" }}</span>
+                        </div>
+                        <p style="margin: 0; color: #4a5568; font-size: 0.9rem; white-space: pre-line;">{{ c.comentario }}</p>
+                    </div>
+                    
+                    <div>
+                        <a href="{% url 'deletar_comentarios' c.id %}" 
+                           style="background: #fff; color: #e53e3e; border: 1px solid #fed7d7; width: 32px; height: 32px; border-radius: 6px; display: flex; align-items: center; justify-content: center; text-decoration: none; transition: all 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.02);"
+                           title="Apagar Comentário do Usuário"
+                           onmouseover="this.style.background='#fff5f5'; this.style.borderColor='#feb2b2';"
+                           onmouseout="this.style.background='#fff'; this.style.borderColor='#fed7d7';"
+                           >
+                            <i class="fa-solid fa-trash-can" style="font-size: 0.85rem;"></i>
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <div style="text-align: center; padding: 30px; border: 1px dashed #e2e8f0; border-radius: 8px; color: #a0aec0;">
+                    <i class="fa-regular fa-comment-dots" style="font-size: 1.5rem; margin-bottom: 8px; display: block;"></i>
+                    <p style="margin: 0; font-size: 0.9rem;">Nenhum comentário realizado nesta postagem.</p>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div style="border-top: 1px solid #edf2f7; padding-top: 20px; display: flex; justify-content: flex-end;">
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" style="background: #e53e3e; color: #fff; border: 0; padding: 12px 24px; border-radius: 6px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background 0.2s; font-size: 0.95rem;">
+                <i class="fa-solid fa-trash-can"></i> Apagar Postagem do Sistema
+            </button>
+        </form>
+    </div>
+
+</div>
+{% endblock %}

@@ -7,7 +7,7 @@ class ProtectAdminMiddleware:
 
     def __call__(self, request):
         if request.user.is_authenticated:         
-            admin_urls = [reverse('admin'), reverse('users'), reverse('mural_admin')]
+            admin_urls = [reverse('admin'), reverse('users')]
             if request.path in admin_urls and not request.user.is_staff:
                 return redirect('erro-acesso-negado')
 
