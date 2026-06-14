@@ -206,7 +206,7 @@ body {
 
 @media (max-width: 480px) {
     .user-nav span {
-        display: none; /* Oculta o texto "Olá, username" para dar espaço no mobile */
+        display: none; 
     }
     .brand h2 {
         font-size: 1rem;
