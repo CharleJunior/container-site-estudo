@@ -1,8 +1,8 @@
 .env
 db.sqlite3
 db.sqlite3.sql
-
 __pycache__
 db (# Edit conflict 2026-04-18 l8angtC #).sqlite3
 dados_locais.json
 database-site.json
+media/
