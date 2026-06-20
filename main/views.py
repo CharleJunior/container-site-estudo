@@ -167,7 +167,7 @@ def detalhes(request, post_id):
             
             return redirect('ver_comentarios', post_id=post_id)
     
-    comentarios = Comentarios.objects.all()
+    comentarios = Comentarios.objects.filter(postagem=postagem)
     context = {
         'comentarios':comentarios,
         'post':postagem
