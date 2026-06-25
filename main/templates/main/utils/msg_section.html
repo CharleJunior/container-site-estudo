@@ -6,7 +6,11 @@
     <meta charset='UTF-8'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mensagens - Portal</title>
+    <!-- estilo do servidor -->
     <link rel='stylesheet' href="{% static 'styles/msg.css' %}">
+    <!-- Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous"> 
+    <!-- Font-Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -14,18 +18,25 @@
 <div class="chat-wrapper {% if contato_selecionado %}chat-ativo{% endif %}">
     
     <aside class="sidebar-contatos">
-        <div class="sidebar-header" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-            <div class="titulo-lateral" style="margin-bottom: 0;">Contatos</div>
-            <a href="{% url 'home' %}" class="btn-home" title="Voltar para o Início" style="text-decoration: none; color: #2563eb; font-size: 1.2rem;">
+            <a href="{% url 'home' %}" class="btn-home" title="Voltar para o Início" style="text-decoration: none; color: #2563eb; font-size: 1.2rem; margin-right: 10px">
                 <i class="fa-solid fa-house"></i>
             </a>
             {% if user.is_staff %}
-                <a href="{% url 'admin' %}" class="btn-admin" title="Painel Admin" style="text-decoration: none; color: #64748b; font-size: 1.1rem;">
-                    <i class="fa-solid fa-gauge-high"></i>
-                </a>
+            <a href="{% url 'admin' %}" class="btn-admin" title="Painel Admin" style="text-decoration: none; color: #177400; font-size: 1.2rem; margin-right: 10px">
+                <i class="fa-solid fa-gauge-high"></i>
+            </a>
             {% endif %}
+        <div class="sidebar-header" style="display: flex; align-items: center; margin-bottom: 10px;">
+            <div class="titulo-lateral" style="margin-bottom: 0;">Contatos</div>
         </div>
 
+        <div class="search-area">
+            <div class="input-group">
+                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                <button type="button" class="btn btn-outline-primary" data-mdb-ripple-init>search</button>
+            </div>
+        </div><br>
+        
         {% for usuario in usuarios %}
             <a href="?chat_with={{ usuario.id }}" class="card-user {% if usuario.mensagens_nao_lidas > 0 %}unread{% endif %}">
                 <div class="user-info">
